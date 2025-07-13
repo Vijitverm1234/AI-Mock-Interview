@@ -21,7 +21,7 @@ export default function Header() {
   return (
     <div className=" w-full z-10">
       <div className="container mx-auto flex justify-between items-center py-6 px-6 md:px-20 lg:px-32">
-        <img src="/logo.svg" height={70} width={70}/>
+        <img src="/logo.svg" height={70} width={70} />
         <ul className="hidden md:flex gap-7 text-gray-800">
           <a href="#home" className="cursor-pointer hover:text-gray-600 transition-colors">
             Home
@@ -37,7 +37,11 @@ export default function Header() {
           </a>
         </ul>
 
-     <UserButton className="h-20 w-20" />
+        <div className="flex items-center justify-center">
+          <div className="scale-125 transform p-2">
+            <UserButton />
+          </div>
+        </div>
         <button
           className="md:hidden text-gray-800 focus:outline-none hover:text-[#6B21A8] transition-colors"
           onClick={() => setShow(true)}
