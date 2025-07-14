@@ -46,7 +46,7 @@ const StartInterview = ({params}) => {
     <div>
       <div className='grid grid-cols-1 md:grid-cols-2 gap-10 '>
         <QuestionsSection mockInterviewQues={mockInterviewQues} activeQuestionIndex={activeQuestionIndex}></QuestionsSection>
-        <RecordAnswerSection></RecordAnswerSection>
+        <RecordAnswerSection  mockInterviewQues={mockInterviewQues}  activeQuestionIndex={activeQuestionIndex}></RecordAnswerSection>
       </div>
     </div>
   )

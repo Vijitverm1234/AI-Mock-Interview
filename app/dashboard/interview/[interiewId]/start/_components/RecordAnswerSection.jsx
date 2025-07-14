@@ -4,7 +4,9 @@ import React, { useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 import useSpeechToText from 'react-hook-speech-to-text';
 import { Mic } from 'lucide-react';
-const RecordAnswerSection = () => {
+import { toast } from 'sonner';
+import { chatSession } from '@/utils/GeminiAIModal';
+const RecordAnswerSection = ({mockInterviewQues, activeQuestionIndex}) => {
       const {
     error,
     interimResult,
@@ -22,6 +24,27 @@ const RecordAnswerSection = () => {
         setUserAns(preAns=>preAns+result?.transcript)
      ))
   },[results])
+
+const SaveUserAnswer= async()=>{
+   if(isRecording){
+    stopSpeechToText();
+    if(userAns.length <10){
+      toast('error while saving your answer.')
+    }
+    const feedbackPrompt="Question"+mockInterviewQues[activeQuestionIndex]?.question+
+    ",User Answer"+userAns+",depends on and question and useranswer for given interview question please give us rating for answer and feedback for area of improvement if any in 3 to 5 line for imporment , in json format with rating feild and feedback feild"
+    const result=await chatSession.sendMessage(feedbackPrompt);
+    const mockJsonResp=(result.response.text()).replace('```json','').replace(  `'''`,'')
+    console.log(mockJsonResp)
+    const jsonFeedback=JSON.parse(mockJsonResp)
+    
+   }
+   else{
+    startSpeechToText()
+   }
+
+}
+
   return (
  <div className="flex flex-col items-center justify-center my-10 bg-gray-300 rounded-xl p-6 md:p-8 w-full max-w-md mx-auto shadow-lg">
           <div className="relative w-full h-64 md:h-80">
@@ -38,7 +61,7 @@ const RecordAnswerSection = () => {
           <div className='flex items-center gap-3'>
           <Button
             className=" px-6 "
-            onClick={isRecording?stopSpeechToText:startSpeechToText}
+            onClick={SaveUserAnswer}
           >
             {isRecording?
             <h2 className='text-red-300 flex items-center gap-1'>
