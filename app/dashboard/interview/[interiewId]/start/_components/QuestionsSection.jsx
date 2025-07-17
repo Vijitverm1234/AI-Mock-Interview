@@ -14,16 +14,20 @@ const QuestionsSection = ({mockInterviewQues,activeQuestionIndex}) => {
   }
 
   return mockInterviewQues && (
-    <div className='p-5 border rounded-lg my-10'>
-      <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'> 
-        {mockInterviewQues && mockInterviewQues.map((questions,index)=>(
-            <h2 className={`p-2 border rounded-full text-xs md:text-sm text-center cursor-pointer ${activeQuestionIndex==index && 'bg-[#6B21A8] text-white'}`}>Questions #{index+1}</h2>
-        ))}
-        
-      </div>
-      <h2 className='my-5 text-md md:text-lg'>{mockInterviewQues[activeQuestionIndex]?.question}</h2>
+    <div className='p-5 border rounded-lg my-5'>
+     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5'> 
+    {mockInterviewQues && mockInterviewQues.slice(0, 5).map((questions, index) => (
+      <h2 
+        key={index} 
+        className={`p-2 border rounded-full text-xs md:text-sm text-center cursor-pointer ${activeQuestionIndex === index ? 'bg-[#6B21A8] text-white' : ''}`}
+      >
+        Questions #{index + 1}
+      </h2>
+    ))}
+  </div>
+      <h2 className='my-4 text-md md:text-lg'>{mockInterviewQues[activeQuestionIndex]?.question}</h2>
       <Volume2 onClick={()=>textToSpeech(mockInterviewQues[activeQuestionIndex]?.question)}></Volume2>
-      <div className='border rounded-lg p-5 bg-blue-100 my-10'>
+      <div className='border rounded-lg p-4 bg-blue-100 my-3'>
         <h2 className='flex gap-3 items-center text-primary'>
             <Lightbulb></Lightbulb>
             <strong>Note:</strong>

@@ -39,7 +39,7 @@ const AddNewInterview = () => {
   setLoading(true);
 
   const InputPrompt = `
-    The questions should assess skills in ${jobDescription} development and best practices, problem-solving, and experience handling complex requirements. Please format the output strictly as an array of JSON objects without any additional labels, code blocks, or explanations. Return only the JSON array with questions and answers.
+    The questions should assess skills in ${jobDescription} development and best practices, problem-solving, and experience handling complex requirements. Please format the output strictly as an array of JSON objects without any additional labels, code blocks, or explanations. Return only the JSON array with 5 questions and answers.
   `;
 
   try {

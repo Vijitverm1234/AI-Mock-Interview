@@ -5,6 +5,9 @@ import { eq } from 'drizzle-orm';
 import React, { useEffect, useState } from 'react'
 import QuestionsSection from './_components/QuestionsSection';
 import RecordAnswerSection from './_components/RecordAnswerSection';
+import { Button } from '@/components/ui/button';
+import { ArrowBigLeft, ArrowBigRight, StopCircle } from 'lucide-react';
+import Link from 'next/link';
 
 const StartInterview = ({params}) => {
     const [interviewData, setInterviewData] = useState(null);
@@ -47,6 +50,16 @@ const StartInterview = ({params}) => {
       <div className='grid grid-cols-1 md:grid-cols-2 gap-10 '>
         <QuestionsSection mockInterviewQues={mockInterviewQues} activeQuestionIndex={activeQuestionIndex}></QuestionsSection>
         <RecordAnswerSection  mockInterviewQues={mockInterviewQues}  activeQuestionIndex={activeQuestionIndex} interviewData={interviewData}></RecordAnswerSection>
+      </div>
+      <div className='flex justify-center gap-3 mb-3'> 
+       { activeQuestionIndex>0 && <Button className="bg-[#6B21A8] text-white hover:bg-[#926db0] items-center"  onClick={()=>setActiveQuestionIndex(activeQuestionIndex-1)}> <ArrowBigLeft></ArrowBigLeft> Previous</Button>}
+       { activeQuestionIndex!=4 && <Button className="bg-[#6B21A8] text-white hover:bg-[#926db0] items-center" onClick={()=>setActiveQuestionIndex(activeQuestionIndex+1)}> Next<ArrowBigRight></ArrowBigRight></Button>}
+       { activeQuestionIndex==4 && 
+       <Link href={'/dashboard/interview/'+interviewData?.mockId+'/feedback'}>
+       <Button className="bg-[#6B21A8] text-white hover:bg-[#926db0] items-center">
+        <StopCircle></StopCircle>End Interview
+        </Button></Link>}
+        
       </div>
     </div>
   )

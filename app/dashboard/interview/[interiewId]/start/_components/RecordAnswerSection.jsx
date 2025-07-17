@@ -3,7 +3,7 @@ import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
 import useSpeechToText from 'react-hook-speech-to-text';
-import { Mic } from 'lucide-react';
+import { Mic, Save } from 'lucide-react';
 import { toast } from 'sonner';
 import { chatSession } from '@/utils/GeminiAIModal';
 import { db } from '@/utils/db';
@@ -19,6 +19,7 @@ const RecordAnswerSection = ({mockInterviewQues, activeQuestionIndex, interviewD
     results,
     startSpeechToText,
     stopSpeechToText,
+    setResults
   } = useSpeechToText({
     continuous: true,
     useLegacyResults: false
@@ -78,8 +79,11 @@ const RecordAnswerSection = ({mockInterviewQues, activeQuestionIndex, interviewD
       });
       if (resp) {
         toast.success('Answer recorded successfully.');
+        setUserAns('')
+        setResults([])
       }
       setUserAns('');
+      setResults([])
     } catch (error) {
       toast.error('Failed to save answer.');
       console.error(error);
@@ -101,7 +105,7 @@ const RecordAnswerSection = ({mockInterviewQues, activeQuestionIndex, interviewD
       </div>
       <div className='flex items-center gap-3'>
         <Button
-          className="px-6"
+          className="px-6  border border-[#6B21A8] bg-white text-[#6B21A8] hover:bg-[#926db0] hover:text-white"
           onClick={StartStopRecording} // Corrected to use StartStopRecording
         >
           {isRecording ?
@@ -109,10 +113,10 @@ const RecordAnswerSection = ({mockInterviewQues, activeQuestionIndex, interviewD
               <Mic /> Recording...
             </h2>
             :
-            'Record Answer'
+           <><Save></Save> 'Record Answer'</> 
           }
         </Button>
-        <Button onClick={() => console.log(userAns)}>Show user Answer</Button>
+        {/* <Button onClick={() => console.log(userAns)}>Show user Answer</Button> */}
       </div>
     </div>
   );
