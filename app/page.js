@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { UserButton } from "@clerk/nextjs";
 import { Calendar, MessagesSquare, Star } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -18,6 +19,7 @@ export default function Home() {
       document.body.style.overflow = "auto";
     };
   }, [show]);
+  const route=useRouter()
   return (
     <div>
       <div className=" w-full z-10">
@@ -133,7 +135,7 @@ export default function Home() {
           </p>
           <Button
             className="bg-[#6B21A8] text-white hover:bg-[#926db0] px-6 py-3 text-lg rounded-lg transition-transform transform hover:scale-105"
-            onClick={() => router.push("/start-interview")}
+            onClick={() => route.push("/dashboard")}
           >
             Start Practicing Now
           </Button>
@@ -172,9 +174,6 @@ export default function Home() {
                 <time className="text-xs font-medium text-gray-700 dark:text-gray-200">
                   Step 1
                 </time>
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">
-                  Schedule Your Interview
-                </h3>
                 <p className="mt-1 text-sm text-gray-700 dark:text-gray-200">
                   Choose a time and topic for your mock interview. Our AI tailors questions to your needs.
                 </p>
@@ -195,7 +194,7 @@ export default function Home() {
                 <time className="text-xs font-medium text-gray-700 dark:text-gray-200">
                   Step 2
                 </time>
-                <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white" >
                   Give Your Interview
                 </h3>
                 <p className="mt-1 text-sm text-gray-700 dark:text-gray-200">
@@ -231,12 +230,17 @@ export default function Home() {
         <div className="mt-10 text-center">
           <Button
             className="bg-[#6B21A8] text-white hover:bg-[#926db0] px-6 py-3 text-lg rounded-lg transition-transform transform hover:scale-105"
-            onClick={() => router.push("/start-interview")}
+           onClick={() => route.push("/dashboard")}
           >
             Start Your Journey
           </Button>
         </div>
       </div>
+
+     
+     <div className="h-[100vh] w-[100%] bg-[#6B21A8] p-3">
+
+     </div>
 
 
       <div>
