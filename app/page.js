@@ -6,8 +6,10 @@ import {
   Calendar,
   MessagesSquare,
   Star,
-  StarHalfIcon,
-  StarIcon, Twitter, Linkedin, Github
+  StarIcon,
+  Twitter,
+  Linkedin,
+  Github,
 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -29,9 +31,9 @@ export default function Home() {
   const route = useRouter();
   return (
     <div>
-      <div className=" w-full z-10">
+      <div className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-gray-100">
         <div className="container mx-auto flex justify-between items-center py-6 px-6 md:px-20 lg:px-32">
-          <img src="/logo.svg" height={70} width={70} />
+          <img src="/logo.svg" height={70} width={70} alt="Virtual Practice Hub logo" />
           <ul className="hidden md:flex gap-7 text-gray-800">
             <a
               href="#home"
@@ -53,45 +55,17 @@ export default function Home() {
             </a>
           </ul>
 
-          <div className="flex items-center justify-center">
-            <div className="scale-125 transform p-2">
+          <div className="flex items-center justify-center gap-2">
+            <div className="scale-110 transform p-1.5">
               <UserButton />
             </div>
-          </div>
-          <button
-            className="md:hidden text-gray-800 focus:outline-none hover:text-[#6B21A8] transition-colors"
-            onClick={() => setShow(true)}
-            aria-label="Toggle menu"
-          >
-            <svg
-              className="w-7 h-7"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16m-7 6h7"
-              />
-            </svg>
-          </button>
-        </div>
-        {/* ---Mobile Menu----- */}
-        <div
-          className={`md:hidden ${
-            show ? "fixed w-full" : "h-0 w-0"
-          } right-0 top-0 bottom-0 overflow-hidden bg-white transition-all duration-300`}
-        >
-          <div className="flex justify-end p-6">
             <button
-              className="text-gray-800 focus:outline-none hover:text-[#6B21A8] transition-colors"
-              onClick={() => setShow(false)}
-              aria-label="Close menu"
+              className="md:hidden text-gray-800 focus:outline-none hover:text-[#6B21A8] transition-colors"
+              onClick={() => setShow(true)}
+              aria-label="Toggle menu"
             >
               <svg
-                className="w-6 h-6"
+                className="w-7 h-7"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -100,37 +74,70 @@ export default function Home() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
+                  d="M4 6h16M4 12h16m-7 6h7"
                 />
               </svg>
             </button>
           </div>
-          <ul className="flex flex-col items-center gap-4 mt-8 px-6 text-lg font-medium text-gray-800">
-            <a
-              href="#home"
-              onClick={() => setShow(false)}
-              className="px-6 py-2 rounded-full inline-block hover:bg-gray-100 transition-colors"
-            >
-              Home
-            </a>
-            <a
-               onClick={() => route.push("/dashboard")}
-              onClick={() => setShow(false)}
-              className="px-6 py-2 rounded-full inline-block hover:bg-gray-100 transition-colors"
-            >
-             <span className="text-[#6B21A8]">Schedule Interview</span>
-            </a>
-           
-          </ul>
+        </div>
+        {/* ---Mobile Menu Overlay & Panel----- */}
+        <div className={`md:hidden fixed inset-0 z-40 transition-opacity ${show ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+          <div className="absolute inset-0 bg-black/30" onClick={() => setShow(false)} />
+          <div className={`absolute right-0 top-0 h-full w-72 max-w-[80%] bg-white shadow-xl transition-transform duration-300 ${show ? "translate-x-0" : "translate-x-full"}`}>
+            <div className="flex justify-between items-center p-6 border-b border-gray-100">
+              <span className="font-semibold text-gray-800">Menu</span>
+              <button
+                className="text-gray-800 focus:outline-none hover:text-[#6B21A8] transition-colors"
+                onClick={() => setShow(false)}
+                aria-label="Close menu"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <ul className="flex flex-col items-start gap-2 p-6 text-lg font-medium text-gray-800">
+              <a
+                href="#home"
+                onClick={() => setShow(false)}
+                className="w-full px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                Home
+              </a>
+              <button
+                onClick={() => { setShow(false); route.push("/dashboard"); }}
+                className="w-full text-left px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <span className="text-[#6B21A8]">Schedule Interview</span>
+              </button>
+              <a
+                href="#about"
+                onClick={() => setShow(false)}
+                className="w-full px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                About us
+              </a>
+            </ul>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6 md:p-10 max-w-7xl mx-auto items-center justify-center">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 p-6 md:p-10 max-w-7xl mx-auto items-center justify-center">
         {/* Text Content */}
         <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800">
-            Ace Your <span className="text-[#6B21A8]">Interview </span> with
-            AI-Powered Practice
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-800 leading-tight">
+            Ace Your <span className="bg-gradient-to-r from-[#6B21A8] to-[#D946EF] bg-clip-text text-transparent">Interview</span> with
+            <br className="hidden md:block" /> AI-Powered Practice
           </h2>
           <p className="text-lg text-gray-600 italic flex gap-4">
             "Practice makes progress, not perfection." – Start preparing today!{" "}
@@ -146,11 +153,12 @@ export default function Home() {
 
         {/* Image Content */}
         <div className="flex justify-center">
-          <img
+          <Image
             src="https://i.pinimg.com/736x/1a/da/62/1ada628a693c2e1f23f752030cd16a8e.jpg"
             alt="AI-driven mock interview illustration"
             height={400}
             width={400}
+            priority
             className="border rounded-2xl shadow-lg object-cover"
           />
         </div>
@@ -254,10 +262,12 @@ export default function Home() {
       </div>
 
      <div className="h-[100vh] w-full bg-gradient-to-br from-[#6B21A8] to-[#D946EF] p-4 flex flex-col items-center justify-center relative overflow-hidden">
-  <div className="absolute inset-0 bg-[url('/circuit-pattern.png')] opacity-10 animate-pulse"></div>
+  <div className="absolute inset-0 bg-[url('/pattern.png')] opacity-10 animate-pulse"></div>
   <div className="relative h-[90%] w-[90%] max-w-4xl">
-    <img
+    <Image
       src="/tab.png"
+      height={800}
+      width={1200}
       className="h-full w-full object-contain transition-transform duration-700 hover:scale-110 hover:rotate-1"
       alt="Virtual practice tablet"
     />
